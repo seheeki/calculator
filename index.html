@@ -30,11 +30,11 @@
       </tr>
       <tr>
         <td colspan="4">
-          <intput type="text" id="result" />
+          <input type="text" id="result" />
         </td>
       </tr>
       <tr>
-        <td colspan="3">AC</td>
+        <td colspan="3" onclick="reset()">AC</td>
         <td onclick="add('/')">/</td>
       </tr>
       <tr>
@@ -58,13 +58,37 @@
       <tr>
         <td colspan="2" onclick="add(0)">0</td>
         <td onclick="add('.')">.</td>
-        <td>=</td>
+        <td onclick="calculate()">=</td>
       </tr>
     </table>
     <script>
+      var numberClicked = false;
       function add(char) {
+        if (numberClicked == false) {
+          if (isNaN(char) == true) {
+          } else {
+            document.getElementById("display").value += char;
+          }
+        } else {
+          document.getElementById("display").value += char;
+        }
+
+        if (isNaN(char) == true) {
+          numberClicked = false;
+        } else {
+          numberClicked = true;
+        }
+      }
+
+      function calculate() {
         var display = document.getElementById("display");
-        display.value = display.value + char;
+        var result = eval(display.value);
+        document.getElementById("result").value = result;
+      }
+
+      function reset() {
+        document.getElementById("display").value = "";
+        document.getElementById("result").value = "";
       }
     </script>
   </body>
